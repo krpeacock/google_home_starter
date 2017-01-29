@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const rpi433 = require('rpi-433');
 const PythonShell = require('python-shell');
 const fs = require('fs');
 const express = require('express');
@@ -7,6 +8,10 @@ const bodyParser= require('body-parser');
 const path = require('path')
 const app = express();
 
+var rfEmitter = rpi433.emitter({
+  pin: 17,
+  pulseLength: 189
+})
 
 
 // Switch states held in memory
@@ -29,7 +34,12 @@ readableStream.on('end', function() {
 });
 
 
-
+var switchCodes = [ 
+  { 'on': 283955, 'off': 283964 },
+  { 'on': 284099, 'off': 284108 },
+  { 'on': 284419, 'off': 284428 },
+  { 'on': 285955, 'off': 285964 },
+  { 'on': 292099, 'off': 292108 }]
 
 // Switch Model
 // Expects an object:{
@@ -46,12 +56,11 @@ function Switch(switchValues){
     (this.state === "on") ? this.setState("off") : this.setState("on");
   }
   this.setState = function(state){
-    var str = state === "on" ? onString(this.id[2]) : offString(this.id[2]);
-    PythonShell.run(str, function (err) {
-      if (!process.env.DEV){
-        if (err) throw err;
-      } 
+    var code = switchCodes[this.id[2]][state];
+    rfEmitter.sendCode(code, function(error, stdout){
+      if (!error) console.log(stdout)
     });
+    
     this.state = state;
   }
   // Invokes setState on init to set the switch to its last recalled state.
