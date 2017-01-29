@@ -60,10 +60,10 @@ function Switch(switchValues){
 
 // needed due to a quirk with PythonShell
 function onString(number){
-  return './public/python/sw' + number + '_on.py'
+  return './public/python/switch.py ' + number + ' on'
 }
 function offString(number){
-  return './public/python/sw' + number + '_off.py'
+  return './public/python/switch.py ' + number + ' off'
 }
 
 
