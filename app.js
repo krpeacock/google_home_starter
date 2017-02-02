@@ -9,7 +9,7 @@ const path = require('path')
 const app = express();
 
 var rfEmitter = rpi433.emitter({
-  pin: 2,
+  pin: 0,
   pulseLength: 189
 })
 
