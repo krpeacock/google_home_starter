@@ -53,7 +53,12 @@ function Switch(switchValues){
   this.state = switchValues.state || "off"
   this.name = switchValues.name || "switch"
   this.toggle = function(){
-    (this.state === "on") ? this.setState("off") : this.setState("on");
+    if(this.state === "on"){
+      this.setState("off")
+    } 
+    else{
+      this.setState("on");
+    }
   }
   this.setState = function(state){
     var code = switchCodes[Number(this.id[2]) - 1][state];
@@ -62,6 +67,7 @@ function Switch(switchValues){
     });
 
     this.state = state;
+
   }
   // Invokes setState on init to set the switch to its last recalled state.
   this.setState(this.state);
@@ -119,7 +125,16 @@ app.post('/api/switches/:id', function(req, res){
 // Example: POST to localhost:8000/API/switches/sw1?password=test
   if (req.query.password === process.env.PASS){
     var foundSwitch = getSwitch(req.params.id);
-    foundSwitch.toggle();
+    
+    // Optional On / Off command. If not included, defaults to a toggle.
+
+    if(!(req.query.command === "on" || req.query.command === "off")){
+      foundSwitch.toggle();
+    }
+    else {
+      foundSwitch.setState(req.query.command)
+    }
+
     saveState();
     console.log("postSwitch "+JSON.stringify(foundSwitch));
     res.json(foundSwitch);
