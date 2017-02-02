@@ -62,7 +62,6 @@ function Switch(switchValues){
   }
   this.setState = function(state){
     var code = switchCodes[Number(this.id.substring(2) )][state];
-    console.log(code)
     rfEmitter.sendCode(code, function(error, stdout){
       if (!error) console.log(stdout)
     });

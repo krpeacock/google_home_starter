@@ -1,6 +1,6 @@
 {
   "name": "google_home_controller",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Backend to control electronics from IFTTT",
   "main": "app.js",
   "scripts": {
