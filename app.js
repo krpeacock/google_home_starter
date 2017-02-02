@@ -34,7 +34,7 @@ readableStream.on('end', function() {
 });
 
 
-var switchCodes = [ 
+var switchCodes = [ {},
   { 'on': 283955, 'off': 283964 },
   { 'on': 284099, 'off': 284108 },
   { 'on': 284419, 'off': 284428 },
@@ -56,11 +56,11 @@ function Switch(switchValues){
     (this.state === "on") ? this.setState("off") : this.setState("on");
   }
   this.setState = function(state){
-    var code = switchCodes[this.id[2]][state];
+    var code = switchCodes[Number(this.id[2]) - 1][state];
     rfEmitter.sendCode(code, function(error, stdout){
       if (!error) console.log(stdout)
     });
-    
+
     this.state = state;
   }
   // Invokes setState on init to set the switch to its last recalled state.
