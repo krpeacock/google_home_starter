@@ -24,5 +24,4 @@ if __name__ == '__main__':
 	sender.setRepeatTransmit(5)
 
 	sender.enableTransmit(17) # use WiringPi pin 17
-	for _ in range(5):
-		sender.sendDecimal(codes[switchnum-1][state], 24) # switch state
+	sender.sendDecimal(codes[switchnum-1][state], 24) # switch state

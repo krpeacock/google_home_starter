@@ -62,9 +62,20 @@ function Switch(switchValues){
   }
   this.setState = function(state){
     var code = switchCodes[Number(this.id.substring(2) )][state];
-    rfEmitter.sendCode(code, function(error, stdout){
-      if (!error) console.log(stdout)
-    });
+    var signals = 10;
+
+    var codeInterval = setInterval(function(){
+      console.log("Transmitting code " + code + "; " + signals + " signals remaining");
+      if (signals > 0){
+        rfEmitter.sendCode(code, function(error, stdout){
+          if (!error) console.log(stdout)
+        });
+        signals -=1;
+      }
+      else {
+        clearInterval(codeInterval);
+      }
+    }, 500)
 
     this.state = state;
 
