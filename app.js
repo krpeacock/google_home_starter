@@ -63,7 +63,8 @@ function Switch(switchValues){
   this.setState = function(state){
     var code = switchCodes[Number(this.id.substring(2) )][state];
     var signals = 10;
-
+    this.state = state;
+    
     var blastIntervals = new Promise(function(resolve, reject){
       var interval = setInterval(function(){
         console.log("Transmitting code " + code + "; " + signals + " signals remaining");
@@ -79,7 +80,6 @@ function Switch(switchValues){
         }
       }, 50)
 
-      blastIntervals.then(this.state = state).bind(this);
 
     })
   }
