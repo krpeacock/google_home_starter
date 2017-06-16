@@ -1,1 +1,1 @@
-{"switches":[{"id":"sw1","state":"off","name":"Bedroom Outlet"},{"id":"sw2","state":"on","name":"off"},{"id":"sw4","state":"off","name":"Coffee Machine"}]}
+{"switches":[{"id":"sw1","state":"on","name":"Outlet 1"},{"id":"sw2","state":"on","name":"Outlet 2"},{"id":"sw3","state":"on","name":"Outlet 3"},{"id":"sw4","state":"on","name":"Coffee Machine"},{"id":"sw5","state":"on","name":"Outlet 5"}]}
