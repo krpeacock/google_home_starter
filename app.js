@@ -66,22 +66,23 @@ function Switch(switchValues){
 
     var blastIntervals = new Promise(function(resolve, reject){
       var interval = setInterval(function(){
-      console.log("Transmitting code " + code + "; " + signals + " signals remaining");
-      if (signals > 0){
-        rfEmitter.sendCode(code, function(error, stdout){
-          if (!error) console.log(stdout)
-        });
-        signals -=1;
-      }
-      else {
-        clearInterval(blastIntervals);
-        resolve('success');
-      }
-    }, 50)
+        console.log("Transmitting code " + code + "; " + signals + " signals remaining");
+        if (signals > 0){
+          rfEmitter.sendCode(code, function(error, stdout){
+            if (!error) console.log(stdout)
+          });
+          signals -=1;
+        }
+        else {
+          clearInterval(blastIntervals);
+          resolve('success');
+        }
+      }, 50)
 
-    blastIntervals.then(this.state = state).bind(this);
+      blastIntervals.then(this.state = state).bind(this);
 
-  })
+    })
+  }
   // Invokes setState on init to set the switch to its last recalled state.
   this.setState(this.state);
 }    
